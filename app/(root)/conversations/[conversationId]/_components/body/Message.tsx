@@ -4,6 +4,8 @@ import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Image from 'next/image';
 import { ContextMenuMessage } from '../context-menu-message';
+import { Button } from '@/components/ui/button';
+import { MoreVertical } from 'lucide-react';
 
 type Props = {
   fromCurrentUser: boolean;
@@ -83,6 +85,7 @@ const Message = ({
           </div>
           {seen}
         </div>
+
         <Avatar
           className={cn('relative w-8 h-8', {
             'order-2': fromCurrentUser,
