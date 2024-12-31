@@ -53,3 +53,37 @@ export const create = mutation({
     return message;
   },
 });
+
+export const deleteMessage = mutation({
+  args: {
+    messageId: v.id('messages'),
+  },
+  handler: async (context, args) => {
+    const identity = await context.auth.getUserIdentity();
+
+    if (!identity) {
+      throw new ConvexError('Unauthorized');
+    }
+
+    const currentUser = await getUserByClerkId({
+      context,
+      clerkId: identity.subject,
+    });
+
+    if (!currentUser) {
+      throw new ConvexError('User not found');
+    }
+
+    const message = await context.db.get(args.messageId);
+
+    if (!message) {
+      throw new ConvexError('Message not found');
+    }
+
+    if (message.senderId !== currentUser._id) {
+      throw new ConvexError('You are not the sender of this message');
+    }
+
+    await context.db.delete(args.messageId);
+  },
+});
