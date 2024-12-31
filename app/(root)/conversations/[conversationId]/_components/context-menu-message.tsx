@@ -58,7 +58,7 @@ export function ContextMenuMessage({
         </ContextMenuItem>
         <ContextMenuItem className="flex items-center gap-x-2">
           <Trash className="w-4 h-4" />
-          {/* <p>Delete</p> */}
+          <p>Delete</p>
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
